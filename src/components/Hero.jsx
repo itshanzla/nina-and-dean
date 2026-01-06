@@ -2,7 +2,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -32,6 +32,29 @@ const Hero = () => {
             <p className="md:text-white/80 text-primary/80 font-bold md:font-normal text-2xl uppercase">
               Almond croissant matcha
             </p>
+          </div>
+        </div>
+
+        {/* Scroll Down Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+          <span className="text-white text-lg uppercase tracking-[0.3em] font-medium mb-2">
+            Scroll
+          </span>
+          <div className="flex flex-col items-center animate-scroll-bounce">
+            <div className="w-[3px] h-12 bg-gradient-to-b from-white via-white to-primary" />
+            <svg
+              className="w-5 h-5 text-primary -mt-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={3}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
           </div>
         </div>
       </div>

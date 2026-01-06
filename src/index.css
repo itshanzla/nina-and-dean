@@ -72,3 +72,20 @@
     scrollbar-color: #5D4037 #FFF4E9;
   }
 }
+
+@keyframes scroll-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-scroll-bounce {
+  animation: scroll-bounce 2s infinite;
+}
+

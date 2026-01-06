@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
@@ -7,9 +7,14 @@ import Touch from "../components/Touch";
 import Lenis from "lenis";
 import Timer from "../components/Timer";
 import { Toaster } from "react-hot-toast";
+import Loader from "../components/Loader";
 
 const Home = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
+    if (isLoading) return; // Wait for loader to finish before starting Lenis
+
     const lenis = new Lenis({
       duration: 1.8, // Balanced smoothness (5 was too slow/laggy)
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function
@@ -34,17 +39,26 @@ const Home = () => {
       lenis.destroy();
       window.lenis = null;
     };
-  }, []);
+  }, [isLoading]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div
+      className={`min-h-screen bg-white ${isLoading ? "overflow-hidden" : ""}`}
+    >
+      <Loader onFinished={() => setIsLoading(false)} />
       <Toaster />
       <Header />
-      <main className="flex-grow">
+      <main className="relative z-0">
         <Hero />
-        <Transition />
-        <Timer />
-        <Touch />
+        <div className="-mt-[1px]">
+          <Transition />
+        </div>
+        <div className="-mt-[1px]">
+          <Timer />
+        </div>
+        <div className="-mt-[1px]">
+          <Touch />
+        </div>
       </main>
       <Footer />
     </div>

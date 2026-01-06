@@ -118,7 +118,7 @@ const Timer = () => {
   return (
     <section
       id="timer-section"
-      className="relative h-screen min-h-[600px] w-full flex items-center justify-center overflow-hidden bg-black"
+      className="relative h-[100dvh] md:min-h-[600px] w-full flex items-center justify-center overflow-hidden bg-black"
     >
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -126,7 +126,7 @@ const Timer = () => {
           src="https://res.cloudinary.com/dqp2z8oaq/image/upload/f_auto,q_auto/v1767697682/HikaruFunnellPhotography-Nina_Dean-JanuaryUpdate-14-12-25-32-2_tre1jn.jpg"
           alt="Nina and Dean"
           loading="eager"
-          className="w-full h-full object-cover object-top translate-y-[7%] md:translate-y-0 md:object-[90%_75%]"
+          className="w-full h-full object-cover object-top md:object-[90%_75%]"
         />
       </div>
 

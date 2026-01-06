@@ -20,7 +20,7 @@ const slides = [
     img: "https://res.cloudinary.com/dqp2z8oaq/image/upload/f_auto,q_auto,w_1280,c_limit/v1767697682/HikaruFunnellPhotography-Nina_Dean-JanuaryUpdate-14-12-25-32-2_tre1jn.jpg",
     title: "January editions",
     sub: "choc chip cookie matcha",
-    pos: "object-top translate-y-[7%] md:translate-y-0 md:object-[90%_75%]",
+    pos: "object-top md:object-[90%_75%]",
   },
 ];
 
@@ -47,7 +47,7 @@ const Transition = () => {
   return (
     <div
       id="transition-section"
-      className="relative h-screen w-full overflow-hidden isolate transform-gpu perspective-1000"
+      className="relative h-[100dvh] w-full overflow-hidden isolate transform-gpu perspective-1000 bg-black"
     >
       <style>
         {`
