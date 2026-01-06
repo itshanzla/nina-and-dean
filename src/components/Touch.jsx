@@ -174,6 +174,7 @@ const Touch = () => {
         <img
           src="https://res.cloudinary.com/dqp2z8oaq/image/upload/v1767683466/HikaruFunnellPhotography-Nina_Dean-JanuaryUpdate-14-12-25-2_bsjjil.jpg"
           alt="Contact Us"
+          loading='lazy'
           className="w-full h-full object-cover"
         />
       </div>

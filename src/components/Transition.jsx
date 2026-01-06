@@ -126,7 +126,7 @@ const Transition = () => {
               <img
                 src={slide.img}
                 alt=""
-                loading="eager"
+                loading="lazy"
                 decoding="async"
                 className={`w-full h-full object-cover object-center translate-z-0 ${slide.pos}`}
               />

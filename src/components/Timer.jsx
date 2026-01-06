@@ -125,7 +125,7 @@ const Timer = () => {
         <img
           src="https://res.cloudinary.com/dqp2z8oaq/image/upload/f_auto,q_auto/v1767697682/HikaruFunnellPhotography-Nina_Dean-JanuaryUpdate-14-12-25-32-2_tre1jn.jpg"
           alt="Nina and Dean"
-          loading="eager"
+          loading="lazy"
           className="w-full h-full object-cover object-top md:object-[90%_75%]"
         />
       </div>

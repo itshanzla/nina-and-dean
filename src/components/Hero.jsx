@@ -8,6 +8,7 @@ const Hero = () => {
         <img
           src="https://res.cloudinary.com/dqp2z8oaq/image/upload/v1767684167/3_jysbbx.jpg"
           alt="Nina and Dean"
+          loading='lazy'
           className="w-full h-full object-cover object-center md:object-[90%_95%]"
         />
       </div>
