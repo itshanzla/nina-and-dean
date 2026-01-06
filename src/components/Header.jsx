@@ -35,13 +35,22 @@ const Header = () => {
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
+      // Add blur to main content when menu is open
+      const mainContent = document.querySelector("main");
+      if (mainContent) mainContent.style.filter = "blur(8px)";
+
       if (window.lenis) window.lenis.stop();
     } else {
       document.body.style.overflow = "unset";
+      const mainContent = document.querySelector("main");
+      if (mainContent) mainContent.style.filter = "none";
+
       if (window.lenis) window.lenis.start();
     }
     return () => {
       document.body.style.overflow = "unset";
+      const mainContent = document.querySelector("main");
+      if (mainContent) mainContent.style.filter = "none";
       if (window.lenis) window.lenis.start();
     };
   }, [isMenuOpen]);
@@ -83,122 +92,122 @@ const Header = () => {
   };
 
   return (
-    <header
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ease-in-out ${
-        isScrolled
-          ? "bg-black/80 backdrop-blur-md shadow-lg py-0"
-          : "bg-transparent py-0"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link
-              to="/"
-              onClick={scrollToTop}
-              className={`font-bold transition-all duration-300 ${
-                isScrolled ? "text-xl md:text-2xl" : "text-xl md:text-3xl"
-              } text-white tracking-[0.3em]`}
-            >
-              NINA & DEAN
-            </Link>
-          </div>
+    <>
+      <header
+        className={`fixed w-full top-0 z-[60] transition-all duration-300 ease-in-out ${
+          isScrolled
+            ? "bg-black/80 backdrop-blur-md shadow-lg py-0"
+            : "bg-transparent py-0"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <div className="flex-shrink-0 flex items-center relative z-[70]">
+              <Link
+                to="/"
+                onClick={scrollToTop}
+                className={`font-bold transition-all duration-300 ${
+                  isScrolled ? "text-xl md:text-2xl" : "text-xl md:text-3xl"
+                } text-white tracking-[0.3em]`}
+              >
+                NINA & DEAN
+              </Link>
+            </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8 items-center">
-            <Link
-              to="/"
-              onClick={scrollToTop}
-              className="text-white/90 hover:text-accent transition-colors font-medium text-sm tracking-wide uppercase"
-            >
-              Home
-            </Link>
-            <a
-              href="#contact"
-              onClick={scrollToContact}
-              className="text-white/90 hover:text-accent transition-colors font-medium text-sm tracking-wide uppercase"
-            >
-              Contact
-            </a>
-            {!emailSubmitted && (
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex space-x-8 items-center">
+              <Link
+                to="/"
+                onClick={scrollToTop}
+                className="text-white/90 hover:text-accent transition-colors font-medium text-sm tracking-wide uppercase"
+              >
+                Home
+              </Link>
               <a
-                href="#waitlist"
-                onClick={scrollToWaitlist}
-                className={`transition-all duration-300 ${
-                  isScrolled
-                    ? "bg-primary text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-white hover:text-primary"
-                    : "text-white/90 hover:text-primary font-bold text-lg"
-                }`}
+                href="#contact"
+                onClick={scrollToContact}
+                className="text-white/90 hover:text-accent transition-colors font-medium text-sm tracking-wide uppercase"
               >
-                Join Waitlist
+                Contact
               </a>
-            )}
-          </nav>
+              {!emailSubmitted && (
+                <a
+                  href="#waitlist"
+                  onClick={scrollToWaitlist}
+                  className={`transition-all duration-300 ${
+                    isScrolled
+                      ? "bg-primary text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-white hover:text-primary"
+                      : "text-white/90 hover:text-primary font-bold text-lg"
+                  }`}
+                >
+                  Join Waitlist
+                </a>
+              )}
+            </nav>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center z-50">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white hover:text-primary focus:outline-none transition-colors p-2"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center relative z-[80]">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-white hover:text-primary focus:outline-none transition-all p-2 active:scale-90"
+                aria-label="Toggle menu"
               >
-                {isMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  {isMenuOpen ? (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  )}
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Mobile Menu Overlay / Backdrop */}
-      {isMenuOpen && (
-        <div
-          className="md:hidden fixed inset-0 z-30 bg-black/20 backdrop-blur-sm transition-opacity duration-300"
-          onClick={() => setIsMenuOpen(false)}
-        />
-      )}
+      <div
+        className={`md:hidden fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity duration-500 ${
+          isMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsMenuOpen(false)}
+      />
 
       {/* Mobile Menu Panel */}
       <div
-        className={`md:hidden fixed top-0 left-0 w-full h-[45vh] z-40 bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`md:hidden fixed top-0 left-0 w-full h-[50vh] z-50 bg-black/95 border-b border-white/10 shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="absolute top-0 left-0 w-full px-4 h-16 flex items-center">
-          <span className="text-xl font-bold text-white tracking-[0.3em]">
-            NINA & DEAN
-          </span>
-        </div>
-        <div className="flex flex-col items-center justify-center h-full space-y-6 pt-16">
+        <div className="flex flex-col items-center justify-center h-full space-y-8 pt-12">
           <Link
             to="/"
-            className="text-xl font-light tracking-[0.2em] text-white/90 hover:text-accent transition-colors uppercase"
+            className="text-2xl font-light tracking-[0.3em] text-white/90 hover:text-accent transition-colors uppercase"
             onClick={scrollToTop}
           >
             Home
           </Link>
           <a
             href="#contact"
-            className="text-xl font-light tracking-[0.2em] text-white/90 hover:text-accent transition-colors uppercase"
+            className="text-2xl font-light tracking-[0.3em] text-white/90 hover:text-accent transition-colors uppercase"
             onClick={scrollToContact}
           >
             Contact
@@ -206,14 +215,14 @@ const Header = () => {
           {!emailSubmitted && (
             <button
               onClick={scrollToWaitlist}
-              className="bg-white/10 border border-white/20 text-white px-8 py-3 rounded-full text-sm tracking-widest uppercase font-medium hover:bg-white hover:text-black transition-all duration-300 mt-4 backdrop-blur-sm"
+              className="bg-white text-black px-10 py-4 rounded-full text-xs tracking-[0.2em] uppercase font-bold hover:bg-accent transition-all duration-300 mt-4 shadow-xl"
             >
               Join Waitlist
             </button>
           )}
         </div>
       </div>
-    </header>
+    </>
   );
 };
 

@@ -45,7 +45,7 @@ const Home = () => {
     <div
       className={`min-h-screen bg-white ${isLoading ? "overflow-hidden" : ""}`}
     >
-      <Loader onFinished={() => setIsLoading(false)} />
+      {isLoading && <Loader onFinished={() => setIsLoading(false)} />}
       <Toaster />
       <Header />
       <main className="relative z-0">
