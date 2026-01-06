@@ -32,6 +32,20 @@ const Header = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+      if (window.lenis) window.lenis.stop();
+    } else {
+      document.body.style.overflow = "unset";
+      if (window.lenis) window.lenis.start();
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+      if (window.lenis) window.lenis.start();
+    };
+  }, [isMenuOpen]);
+
   const scrollToTop = (e) => {
     e.preventDefault();
     if (window.lenis) {
