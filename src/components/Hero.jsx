@@ -16,10 +16,20 @@ const Hero = () => {
       <div className="relative z-10 min-h-screen w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Left Content */}
         <div className="absolute top-36">
-          <h1 className="text-4xl md:text-6xl font-normal text-white drop-shadow-md uppercase">
-            January editions are live
+          <h1 className="text-4xl md:text-6xl font-normal text-white uppercase">
+            2026 editions are live
           </h1>
-          <button className="mt-10 md:mt-20 px-10 py-6 bg-white text-xl md:text-3xl text-primary/80 font-medium rounded-full shadow-md overflow-hidden relative group">
+          <button
+            onClick={() => {
+              const target = document.getElementById('transition-section');
+              if (target && window.lenis) {
+                window.lenis.scrollTo(target, { duration: 1.5 });
+              } else if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="mt-10 md:mt-20 px-10 py-6 bg-white text-xl md:text-3xl text-primary/80 font-medium rounded-full shadow-md overflow-hidden relative group"
+          >
             <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
               New drinks
             </span>

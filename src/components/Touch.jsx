@@ -46,16 +46,19 @@ const Touch = () => {
       className="w-full min-h-[500px] flex flex-col lg:flex-row font-sans bg-[radial-gradient(circle_at_center,#FFF4E9,#f8dbc0)]"
     >
       {/* Left Section */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center p-6 lg:p-16 xl:p-20 text-[#5D4037]">
+      <div className="w-full lg:w-1/2 flex flex-col justify-center p-6 pt-16 lg:p-16 lg:pt-24 xl:p-20 xl:pt-28 text-[#5D4037]">
         {/* Top Text */}
-        <div className="w-full text-center mb-8 lg:mb-0">
-          <h2 className="text-3xl lg:text-5xl xl:text-6xl font-bold uppercase tracking-widest">
-            keep In Touch
+        <div className="w-full text-center mb-8 lg:mb-10">
+          <h2 className="text-2xl lg:text-4xl xl:text-5xl font-bold uppercase tracking-[0.3em]">
+            Start a
+          </h2>
+          <h2 className="text-2xl lg:text-4xl xl:text-5xl font-bold uppercase tracking-[0.3em]">
+            conversation
           </h2>
         </div>
 
         {/* Form Container */}
-        <div className="w-full max-w-lg mx-auto mt-6 lg:mt-10">
+        <div className="w-full max-w-lg mx-auto mt-2 lg:mt-4">
           <div className="bg-white/20 backdrop-blur-sm p-6 lg:p-8 rounded-xl border border-white/30 shadow-sm">
             <form
               onSubmit={formik.handleSubmit}

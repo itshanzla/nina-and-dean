@@ -135,10 +135,10 @@ const Transition = () => {
             <div className="relative z-30 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full pointer-events-none">
               <div className="absolute top-[30%] 2xl:left-[70%] 2xl:top-[50%] xl:left-[70%] lg:left-[60%] lg:top-[30%] md:top-[30%] md:left-[40%] left-[0%] right-0 lg:right-8 transform -translate-y-1/2 uppercase">
                 <div className="text-center">
-                  <h1 className="text-white/95 font-bold md:font-medium text-4xl lg:text-5xl uppercase tracking-[0.2em] translate-z-0">
-                    {slide.title}
+                  <h1 className="text-white font-bold text-4xl lg:text-5xl uppercase tracking-[0.2em]">
+                    2026 editions
                   </h1>
-                  <p className="text-white/90 mt-6 font-bold md:font-normal text-2xl lg:text-3xl leading-tight tracking-[0.1em] translate-z-0">
+                  <p className="text-white/90 font-bold md:font-normal text-2xl lg:text-3xl leading-tight tracking-[0.1em] translate-z-0 mt-4">
                     {slide.sub}
                   </p>
                 </div>

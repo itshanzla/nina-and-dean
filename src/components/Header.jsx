@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const checkEmail = () => {
@@ -35,60 +37,37 @@ const Header = () => {
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
-      // Add blur to main content when menu is open
       const mainContent = document.querySelector("main");
       if (mainContent) mainContent.style.filter = "blur(8px)";
-
-      if (window.lenis) window.lenis.stop();
     } else {
       document.body.style.overflow = "unset";
       const mainContent = document.querySelector("main");
       if (mainContent) mainContent.style.filter = "none";
-
-      if (window.lenis) window.lenis.start();
     }
     return () => {
       document.body.style.overflow = "unset";
       const mainContent = document.querySelector("main");
       if (mainContent) mainContent.style.filter = "none";
-      if (window.lenis) window.lenis.start();
     };
   }, [isMenuOpen]);
 
-  const scrollToTop = (e) => {
+  const handleNavigation = (e, hash = null) => {
     e.preventDefault();
-    if (window.lenis) {
-      window.lenis.scrollTo(0, { immediate: true });
+    setIsMenuOpen(false);
+
+    if (location.pathname !== "/") {
+      // Navigate to home, with optional hash
+      navigate(hash ? `/${hash}` : "/");
+    } else if (hash) {
+      // Already on home, just scroll to section
+      const element = document.getElementById(hash.slice(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "auto" });
+      }
     } else {
-      window.scrollTo({ top: 0 });
+      // Scroll to top
+      window.scrollTo(0, 0);
     }
-    setIsMenuOpen(false);
-  };
-
-  const scrollToContact = (e) => {
-    e.preventDefault();
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      if (window.lenis) {
-        window.lenis.scrollTo(contactSection, { immediate: true });
-      } else {
-        contactSection.scrollIntoView({ behavior: "auto" });
-      }
-    }
-    setIsMenuOpen(false);
-  };
-
-  const scrollToWaitlist = (e) => {
-    e.preventDefault();
-    const timerSection = document.getElementById("timer-section");
-    if (timerSection) {
-      if (window.lenis) {
-        window.lenis.scrollTo(timerSection, { immediate: true });
-      } else {
-        timerSection.scrollIntoView();
-      }
-    }
-    setIsMenuOpen(false);
   };
 
   return (
@@ -106,7 +85,7 @@ const Header = () => {
             <div className="flex-shrink-0 flex items-center relative z-[70]">
               <Link
                 to="/"
-                onClick={scrollToTop}
+                onClick={(e) => handleNavigation(e)}
                 className={`font-bold transition-all duration-300 ${
                   isScrolled ? "text-xl md:text-2xl" : "text-xl md:text-3xl"
                 } text-white tracking-[0.3em]`}
@@ -119,22 +98,22 @@ const Header = () => {
             <nav className="hidden md:flex space-x-8 items-center">
               <Link
                 to="/"
-                onClick={scrollToTop}
+                onClick={(e) => handleNavigation(e)}
                 className="text-white/90 hover:text-accent transition-colors font-medium text-sm tracking-wide uppercase"
               >
                 Home
               </Link>
-              <a
-                href="#contact"
-                onClick={scrollToContact}
+              <Link
+                to="/#contact"
+                onClick={(e) => handleNavigation(e, "#contact")}
                 className="text-white/90 hover:text-accent transition-colors font-medium text-sm tracking-wide uppercase"
               >
                 Contact
-              </a>
+              </Link>
               {!emailSubmitted && (
-                <a
-                  href="#waitlist"
-                  onClick={scrollToWaitlist}
+                <Link
+                  to="/#timer-section"
+                  onClick={(e) => handleNavigation(e, "#timer-section")}
                   className={`transition-all duration-300 ${
                     isScrolled
                       ? "bg-primary text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-white hover:text-primary"
@@ -142,7 +121,7 @@ const Header = () => {
                   }`}
                 >
                   Join Waitlist
-                </a>
+                </Link>
               )}
             </nav>
 
@@ -201,24 +180,25 @@ const Header = () => {
           <Link
             to="/"
             className="text-2xl font-light tracking-[0.3em] text-white/90 hover:text-accent transition-colors uppercase"
-            onClick={scrollToTop}
+            onClick={(e) => handleNavigation(e)}
           >
             Home
           </Link>
-          <a
-            href="#contact"
+          <Link
+            to="/#contact"
             className="text-2xl font-light tracking-[0.3em] text-white/90 hover:text-accent transition-colors uppercase"
-            onClick={scrollToContact}
+            onClick={(e) => handleNavigation(e, "#contact")}
           >
             Contact
-          </a>
+          </Link>
           {!emailSubmitted && (
-            <button
-              onClick={scrollToWaitlist}
+            <Link
+              to="/#timer-section"
+              onClick={(e) => handleNavigation(e, "#timer-section")}
               className="bg-white text-black px-10 py-4 rounded-full text-xs tracking-[0.2em] uppercase font-bold hover:bg-accent transition-all duration-300 mt-4 shadow-xl"
             >
               Join Waitlist
-            </button>
+            </Link>
           )}
         </div>
       </div>

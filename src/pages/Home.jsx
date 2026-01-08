@@ -1,45 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import Transition from "../components/Transition";
 import Touch from "../components/Touch";
-import Lenis from "lenis";
 import Timer from "../components/Timer";
 import { Toaster } from "react-hot-toast";
 import Loader from "../components/Loader";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
 
+  // Handle scroll after loading is done
   useEffect(() => {
-    if (isLoading) return; // Wait for loader to finish before starting Lenis
+    if (isLoading) return;
 
-    const lenis = new Lenis({
-      duration: 1.8, // Balanced smoothness (5 was too slow/laggy)
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 0.8, // Slightly reduce scroll speed
-      touchMultiplier: 2,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    // Check for hash in URL (e.g., /#contact)
+    if (location.hash) {
+      const element = document.getElementById(location.hash.slice(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "auto" });
+      }
+    } else {
+      window.scrollTo(0, 0);
     }
-
-    requestAnimationFrame(raf);
-
-    // Set lenis as a global object so Header/Footer can use it to scroll
-    window.lenis = lenis;
-
-    return () => {
-      lenis.destroy();
-      window.lenis = null;
-    };
-  }, [isLoading]);
+  }, [isLoading, location.hash]);
 
   return (
     <div
