@@ -1,9 +1,12 @@
-import React from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import api from "../services/api";
 
 const Touch = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -25,18 +28,32 @@ const Touch = () => {
         .min(10, "Message must be at least 10 characters")
         .required("Message is required"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log("Form submitted:", values);
-      toast.success("Thank you for your message! We'll get back to you soon.", {
-        duration: 4000,
-        position: "top-center",
-        icon: null,
-        style: {
-          background: "#5D4037",
-          color: "#fff",
-        },
-      });
-      resetForm();
+    onSubmit: async (values, { resetForm }) => {
+      setIsSubmitting(true);
+      try {
+        await api.submitContactForm(values);
+        toast.success("Thank you for your message! We'll get back to you soon.", {
+          duration: 4000,
+          position: "top-center",
+          icon: null,
+          style: {
+            background: "#5D4037",
+            color: "#fff",
+          },
+        });
+        resetForm();
+      } catch (error) {
+        toast.error(error.message || "Something went wrong. Please try again.", {
+          duration: 4000,
+          position: "top-center",
+          style: {
+            background: "#dc2626",
+            color: "#fff",
+          },
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
     },
   });
 
@@ -160,9 +177,13 @@ const Touch = () => {
               </div>
 
               <div className="pt-4 text-center lg:text-left">
-                <button className="px-10 py-5 bg-white text-sm text-[#5D4037] font-bold uppercase tracking-[0.2em] rounded-full shadow-sm overflow-hidden relative group">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-10 py-5 bg-white text-sm text-[#5D4037] font-bold uppercase tracking-[0.2em] rounded-full shadow-sm overflow-hidden relative group disabled:opacity-70 disabled:cursor-not-allowed"
+                >
                   <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </span>
                   <div className="absolute top-full left-1/2 -translate-x-1/2 w-[300%] h-[300%] rounded-[45%] bg-[#5D4037] transition-all duration-700 ease-in-out group-hover:top-[-100%]" />
                 </button>

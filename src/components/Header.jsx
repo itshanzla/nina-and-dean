@@ -99,14 +99,14 @@ const Header = () => {
               <Link
                 to="/"
                 onClick={(e) => handleNavigation(e)}
-                className="text-white/90 hover:text-accent transition-colors font-medium text-sm tracking-wide uppercase"
+                className="text-white/90 hover:text-primary transition-colors font-medium text-sm tracking-wide uppercase"
               >
                 Home
               </Link>
               <Link
                 to="/#contact"
                 onClick={(e) => handleNavigation(e, "#contact")}
-                className="text-white/90 hover:text-accent transition-colors font-medium text-sm tracking-wide uppercase"
+                className="text-white/90 hover:text-primary transition-colors font-medium text-sm tracking-wide uppercase"
               >
                 Contact
               </Link>
@@ -179,14 +179,14 @@ const Header = () => {
         <div className="flex flex-col items-center justify-center h-full space-y-8 pt-12">
           <Link
             to="/"
-            className="text-2xl font-light tracking-[0.3em] text-white/90 hover:text-accent transition-colors uppercase"
+            className="text-2xl font-light tracking-[0.3em] text-white/90 hover:text-primary transition-colors uppercase"
             onClick={(e) => handleNavigation(e)}
           >
             Home
           </Link>
           <Link
             to="/#contact"
-            className="text-2xl font-light tracking-[0.3em] text-white/90 hover:text-accent transition-colors uppercase"
+            className="text-2xl font-light tracking-[0.3em] text-white/90 hover:text-primary transition-colors uppercase"
             onClick={(e) => handleNavigation(e, "#contact")}
           >
             Contact

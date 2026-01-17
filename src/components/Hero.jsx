@@ -28,10 +28,10 @@ const Hero = () => {
                 target.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="mt-10 md:mt-20 px-10 py-6 bg-white text-xl md:text-3xl text-primary/80 font-medium rounded-full shadow-md overflow-hidden relative group"
+            className="mt-10 md:mt-20 px-10 py-6 bg-white text-2xl text-primary/80 font-bold md:font-normal rounded-full shadow-md overflow-hidden relative group"
           >
             <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
-              New drinks
+              New Drinks
             </span>
             <div className="absolute top-full left-1/2 -translate-x-1/2 w-[300%] h-[300%] rounded-[45%] bg-primary transition-all duration-700 ease-in-out group-hover:top-[-100%]" />
           </button>

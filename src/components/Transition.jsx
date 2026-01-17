@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../services/api";
 
-const slides = [
+// Fallback slides if API fails
+const defaultSlides = [
   {
     id: 1,
     img: "https://res.cloudinary.com/dqp2z8oaq/image/upload/f_auto,q_auto,w_1280,c_limit/v1767683466/HikaruFunnellPhotography-Nina_Dean-JanuaryUpdate-14-12-25-33-2_kw85r9.jpg",
@@ -25,9 +27,40 @@ const slides = [
 ];
 
 const Transition = () => {
+  const [slides, setSlides] = useState(defaultSlides);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(null);
   const INTERVAL_DURATION = 5000;
+
+  // Fetch carousel slides from API
+  useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        const response = await api.getLandingPageData();
+        if (response.success && response.data?.carousel?.slides?.length > 0) {
+          const apiSlides = response.data.carousel.slides
+            .filter((slide) => slide.isActive)
+            .sort((a, b) => a.order - b.order)
+            .map((slide, index) => ({
+              id: slide._id || index + 1,
+              img: slide.image,
+              title: slide.drinkName || "New editions",
+              sub: slide.drinkSubtitle || "",
+              pos: "md:object-[90%_95%]",
+            }));
+
+          if (apiSlides.length > 0) {
+            setSlides(apiSlides);
+          }
+        }
+      } catch (error) {
+        console.log("Using default slides:", error.message);
+        // Keep default slides on error
+      }
+    };
+
+    fetchSlides();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
